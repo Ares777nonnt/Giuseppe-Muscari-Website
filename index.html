@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -575,36 +576,6 @@
   margin: 0;
   padding: 0;
 }
-  /* Mobile-friendly improvements */
-  @media (max-width: 720px) {
-    .lightbox img {
-      max-width: 95vw;
-      max-height: 80vh;
-    }
-
-    .lightbox-prev,
-    .lightbox-next {
-      font-size: 2rem !important;
-      padding: 0.6rem 1rem !important;
-    }
-
-    nav {
-      gap: 0.8rem;
-      padding: 0.7rem 1rem;
-    }
-
-    nav a {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-    }
-
-    .gallery-grid {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.7rem;
-    }
-
-    .gallery-item { aspect-ratio: 1 / 1; }
-  }
 </style>
 </head>
 <body>
@@ -918,100 +889,36 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('section.content-section');
-  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const sections = document.querySelectorAll('section.content-section');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-  const btnPrev = lightbox.querySelector('.lightbox-prev');
-  const btnNext = lightbox.querySelector('.lightbox-next');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const btnPrev = lightbox.querySelector('.lightbox-prev');
+    const btnNext = lightbox.querySelector('.lightbox-next');
 
-  const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
-  let currentIndex = 0;
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
+    let currentIndex = 0;
 
-  function openLightbox(index) {
-    currentIndex = index;
-    lightboxImg.src = galleryImages[index].src;
-    lightbox.classList.add('active');
-  }
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = galleryImages[index].src;
+      lightbox.classList.add('active');
+    }
 
-  function showNext() {
-    currentIndex = (currentIndex + 1) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentIndex].src;
-  }
+    function showNext() {
+      currentIndex = (currentIndex + 1) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentIndex].src;
+    }
 
-  function showPrev() {
-    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentIndex].src;
-  }
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentIndex].src;
+    }
 
-  galleryImages.forEach((img, index) => {
-    img.addEventListener('click', () => openLightbox(index));
-  });
-
-  btnNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
-  btnPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
-
-  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') lightbox.classList.remove('active');
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'ArrowLeft') showPrev();
-  });
-
-  /* MOBILE SWIPE SUPPORT */
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  lightboxImg.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  lightboxImg.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  });
-
-  function handleSwipe() {
-    const distance = touchEndX - touchStartX;
-    if (Math.abs(distance) < 40) return;
-    if (distance < 0) showNext();
-    if (distance > 0) showPrev();
-  }
-
-  function hideAll(){ sections.forEach(s=>s.style.display='none'); }
-  function showSection(id){
-    const t=document.getElementById(id);
-    if(!t) return;
-    sections.forEach(sec=>{
-      sec.style.opacity=0;
-      sec.style.transform='translateY(20px)';
-      sec.style.transition='opacity .45s ease, transform .45s ease';
+    galleryImages.forEach((img, index) => {
+      img.addEventListener('click', () => openLightbox(index));
     });
-    setTimeout(() => {
-      hideAll();
-      t.style.display='block';
-      requestAnimationFrame(() => {
-        t.style.opacity=1;
-        t.style.transform='translateY(0)';
-      });
-    }, 120);
-  }
-
-  function setActiveLink(id){
-    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href').substring(1) === id));
-  }
-
-  hideAll(); showSection('about'); setActiveLink('about');
-  navLinks.forEach(l => l.addEventListener('click', e => {
-    e.preventDefault();
-    const id = l.getAttribute('href').substring(1);
-    showSection(id);
-    setActiveLink(id);
-  }));
-});
 
     btnNext.addEventListener('click', (e) => {
       e.stopPropagation();
