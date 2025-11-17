@@ -957,7 +957,13 @@
         });
       },120);
     }
-    function setActiveLink(id){ navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href').substring(1)===id)); }
+    function setActiveLink(id){ navLinks.forEach(l=>l.addEventListener('click',e=>{
+      e.preventDefault();
+      const id=l.getAttribute('href').substring(1);
+      // Ensure contact section exists and is selectable
+      showSection(id);
+      setActiveLink(id);
+    }));(l=>l.classList.toggle('active', l.getAttribute('href').substring(1)===id)); }
     hideAll(); showSection('about'); setActiveLink('about');
     navLinks.forEach(l=>l.addEventListener('click',e=>{ e.preventDefault(); const id=l.getAttribute('href').substring(1); showSection(id); setActiveLink(id);}));
   });
