@@ -606,7 +606,7 @@
       <h2>About Me</h2>
       <p class="section-subtitle">Astrobiology, plant physiology and polar fieldwork.</p>
       <div class="profile-wrapper">
-        <img src="assets/profile/profile.jpg" alt="Profile picture" class="profile-pic" />
+        <img src="/mnt/data/5825466973855353618.jpg" alt="Profile picture" class="profile-pic" />
         <div class="profile-text">
           <p>
             I am a biologist with a strong focus on <strong>astrobiology</strong> and the study of
@@ -863,7 +863,7 @@
         </div>
 
         <div class="gallery-item">
-<img src="assets/gallery/SvalAurora1.webp" alt="Aurora in Svalbard" />
+          <img src="assets/gallery/SvalAurora1.webp" alt="Niskin sampling in Svalbard" />
         </div>
 
         <div class="gallery-item">
@@ -871,90 +871,87 @@
         </div>
       </div>
 
-      <div class="lightbox" id="lightbox"><img src="" alt="Expanded view"></div>
-    </section>
-<section id="contact" class="content-section fade-in">
-      <h2>Contact</h2>
-      <p class="section-subtitle">Feel free to reach out for collaborations, projects or ideas.</p>
+      <div class="lightbox" id="lightbox">
+    <button class="lightbox-prev">&#10094;</button>
+    <img src="" alt="Expanded view" />
+    <button class="lightbox-next">&#10095;</button>
+</div>
 
-      <div class="contact-grid">
-        <div class="contact-card">
-          <div class="contact-label">Email</div>
-          <div class="contact-value">
-            <a href="mailto:giuseppemuscari.gm@gmail.com">giuseppemuscari.gm@gmail.com</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value">
-            <a href="https://www.linkedin.com/in/giuseppemuscaritomajoli/" target="_blank" rel="noopener noreferrer">
-              linkedin.com/in/giuseppemuscaritomajoli
-            </a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-label">Location</div>
-          <div class="contact-value">Naples, Italy · Frequently in polar and field environments</div>
-        </div>
-      </div>
-    </section>
-  </main>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section.content-section');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
-  <footer>
-    © <span>2025</span> Giuseppe Muscari Tomajoli — Astrobiology &amp; Extreme Environments
-  </footer>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const btnPrev = lightbox.querySelector('.lightbox-prev');
+    const btnNext = lightbox.querySelector('.lightbox-next');
 
-  <script>
-    // SPA navigation improved (smooth fade)
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section.content-section');
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = lightbox.querySelector('img');
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
+    let currentIndex = 0;
 
-      function hideAll(){ sections.forEach(s=>s.style.display='none'); }
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = galleryImages[index].src;
+      lightbox.classList.add('active');
+    }
 
-      function showSection(id){
-        const t=document.getElementById(id);
-        if(!t) return;
-        sections.forEach(sec=>{
-          sec.style.opacity=0;
-          sec.style.transform='translateY(20px)';
-          sec.style.transition='opacity .45s ease, transform .45s ease';
-        });
-        setTimeout(()=>{
-          hideAll();
-          t.style.display='block';
-          requestAnimationFrame(()=>{
-            t.style.opacity=1;
-            t.style.transform='translateY(0)';
-          });
-        },120);
-      }
+    function showNext() {
+      currentIndex = (currentIndex + 1) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentIndex].src;
+    }
 
-      function setActiveLink(id){
-        navLinks.forEach(l=>{
-          l.classList.toggle('active', l.getAttribute('href').substring(1)===id);
-        });
-      }
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentIndex].src;
+    }
 
-      hideAll(); showSection('about'); setActiveLink('about');
-
-      navLinks.forEach(l=>l.addEventListener('click',e=>{
-        e.preventDefault();
-        const id=l.getAttribute('href').substring(1);
-        showSection(id); setActiveLink(id);
-      }));
-
-      document.querySelectorAll('.gallery-item img').forEach(img=>{
-        img.addEventListener('click',()=>{
-          lightboxImg.src=img.src;
-          lightbox.classList.add('active');
-        });
-      });
-      lightbox.addEventListener('click',()=> lightbox.classList.remove('active'));
+    galleryImages.forEach((img, index) => {
+      img.addEventListener('click', () => openLightbox(index));
     });
-  </script>
+
+    btnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showNext();
+    });
+
+    btnPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPrev();
+    });
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+    });
+
+    function hideAll(){ sections.forEach(s=>s.style.display='none'); }
+    function showSection(id){
+      const t=document.getElementById(id);
+      if(!t) return;
+      sections.forEach(sec=>{
+        sec.style.opacity=0;
+        sec.style.transform='translateY(20px)';
+        sec.style.transition='opacity .45s ease, transform .45s ease';
+      });
+      setTimeout(()=>{
+        hideAll();
+        t.style.display='block';
+        requestAnimationFrame(()=>{
+          t.style.opacity=1;
+          t.style.transform='translateY(0)';
+        });
+      },120);
+    }
+    function setActiveLink(id){ navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href').substring(1)===id)); }
+    hideAll(); showSection('about'); setActiveLink('about');
+    navLinks.forEach(l=>l.addEventListener('click',e=>{ e.preventDefault(); const id=l.getAttribute('href').substring(1); showSection(id); setActiveLink(id);}));
+  });
+</script>
 
 </body>
 </html>
