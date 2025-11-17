@@ -632,7 +632,7 @@
       flex-direction: column;
       background: rgba(2, 5, 26, 0.97);
       position: absolute;
-      top: 58px;
+      top: 50px;
       left: 0;
       width: 100%;
       padding: 1rem 0;
@@ -734,7 +734,7 @@
     </div>
   </header>
 
-  <nav>
+  <nav style="position: sticky; top:0;">
     <div class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
       <span></span><span></span><span></span>
     </div>
@@ -1068,7 +1068,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section.content-section');
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
+    const navLinks = [...desktopLinks, ...mobileLinks]^="#"]');
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
