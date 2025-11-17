@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giuseppe Muscari Tomajoli – Astrobiology & Extreme Environments</title>
   <style>
+    /* Hide hamburger by default (desktop) */
+    .hamburger { display: none; }
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
     :root {
@@ -546,6 +548,8 @@
     }
 
     @media (max-width: 720px) {
+    /* Show hamburger only on mobile */
+    .hamburger { display: flex !important; }
       header { padding-top: 4rem; }
       .hero-orbit, .hero-glow { display: none; }
       section.content-section { padding: 1.9rem 1.6rem; }
