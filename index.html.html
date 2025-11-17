@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giuseppe Muscari Tomajoli – Astrobiology & Extreme Environments</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg-space: #020314;
+      --bg-panel: rgba(7, 12, 40, 0.92);
+      --bg-panel-soft: rgba(8, 16, 55, 0.85);
+      --accent: #7ef9ff;
+      --accent-soft: #3ad0ff;
+      --accent-secondary: #ff6ad5;
+      --text-main: #e9f3ff;
+      --text-muted: #9aa7c7;
+      --border-glow: 0 0 18px rgba(126, 249, 255, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, #15153a 0, transparent 40%),
+        radial-gradient(circle at 90% 0%, #310d47 0, transparent 45%),
+        radial-gradient(circle at 50% 100%, #041b2f 0, #020314 65%);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Subtle starfield effect */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.24) 0, transparent 50%),
+        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.18) 0, transparent 50%),
+        radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.22) 0, transparent 50%),
+        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.16) 0, transparent 50%);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Smooth fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeIn 0.8s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      border: 1px solid rgba(126, 249, 255, 0.3);
+      top: -120px;
+      left: calc(50% - 260px);
+      opacity: 0.35;
+      filter: drop-shadow(0 0 22px rgba(126,249,255,0.7));
+    }
+
+    .hero-orbit::before,
+    .hero-orbit::after {
+      content: '';
+      position: absolute;
+      inset: 18%;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,249,255,0.35), transparent 60%);
+      top: -40px;
+      left: calc(50% - 210px);
+      filter: blur(2px);
+      opacity: 0.9;
+    }
+
+    header .hero-inner {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 4vw, 3.2rem);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 1.3rem;
+    }
+
+    header p.hero-text {
+      margin: 0 auto;
+      max-width: 640px;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+    }
+
+    .hero-badges {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      border-radius: 999px;
+      border: 1px solid rgba(126,249,255,0.35);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: linear-gradient(120deg, rgba(6,13,48,0.9), rgba(8,26,66,0.8));
+      box-shadow: var(--border-glow);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      background: rgba(2, 5, 26, 0.97);
+      padding: 0.85rem 1.5rem;
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(126,249,255,0.16);
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      position: relative;
+      padding-bottom: 0.25rem;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      transition: width 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      padding: 2rem 1rem 4rem;
+    }
+
+    section.content-section {
+      max-width: 1040px;
+      margin: 3rem auto;
+      background: linear-gradient(135deg, var(--bg-panel), var(--bg-panel-soft));
+      border: 1px solid rgba(168, 214, 255, 0.22);
+      padding: 2.4rem 2.2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.7), var(--border-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section.content-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    h2 {
+      color: var(--accent);
+      margin-top: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+
+    h3 {
+      color: #e4ecff;
+      margin-top: 1.9rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-main);
+    }
+
+    .muted { color: var(--text-muted); }
+
+    .profile-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .profile-pic {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(126,249,255,0.7);
+      box-shadow: 0 0 30px rgba(126,249,255,0.7);
+      flex-shrink: 0;
+    }
+
+    .profile-text { flex: 1 1 260px; }
+
+    .key-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: rgba(2,7,28,0.8);
+    }
+
+    /* Timeline for Academic Profile */
+    .timeline {
+      position: relative;
+      margin-top: 1.5rem;
+      padding-left: 1.2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), rgba(126,249,255,0));
+      opacity: 0.7;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 0.35rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff, var(--accent));
+      box-shadow: 0 0 12px rgba(126,249,255,0.9);
+    }
+
+    .timeline-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: #e6eeff;
+      margin-bottom: 0.1rem;
+    }
+
+    .timeline-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(126,249,255,0.35);
+      color: var(--accent);
+      background: rgba(4, 19, 45, 0.95);
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.2), transparent 55%);
+      border: 1px solid rgba(179, 218, 255, 0.2);
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      opacity: 0.86;
+    }
+
+    .gallery-item:hover img { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 18px rgba(126,249,255,0.55)); }
+
+    .gallery-label {
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.6rem;
+      font-size: 0.8rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(3, 6, 20, 0.84);
+      color: var(--accent);
+      border: 1px solid rgba(126,249,255,0.6);
+    }
+
+    /* App section */
+    .app-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .app-card {
+      position: relative;
+      border-radius: 26px;
+      border: 1px solid rgba(126,249,255,0.35);
+      padding: 1.4rem 1.2rem;
+      background: radial-gradient(circle at 10% 0, rgba(126,249,255,0.22), transparent 55%),
+                  radial-gradient(circle at 90% 100%, rgba(255,106,213,0.15), transparent 55%),
+                  rgba(2,7,28,0.92);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.8);
+    }
+
+    .app-screen {
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto;
+      border-radius: 30px;
+      padding: 1rem 0.9rem;
+      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.3), transparent 60%),
+                  #020616;
+      border: 1px solid rgba(160, 210, 255, 0.7);
+      box-shadow: 0 0 26px rgba(126,249,255,0.7);
+    }
+
+    .app-screen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .app-dot-row {
+      display: flex;
+      gap: 0.18rem;
+    }
+
+    .app-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.35);
+    }
+
+    .app-metric-card {
+      margin-top: 0.5rem;
+      border-radius: 12px;
+      padding: 0.55rem 0.65rem;
+      background: rgba(5,19,50,0.95);
+      border: 1px solid rgba(126,249,255,0.35);
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-main);
+    }
+
+    .metric-label { color: var(--text-muted); }
+    .metric-value { font-weight: 600; }
+    .metric-good { color: #8bffb2; }
+    .metric-warn { color: #ffd27f; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(126,249,255,0.6);
+      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.5), transparent 60%),
+                  rgba(4, 21, 60, 0.98);
+      color: #f3fbff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(126,249,255,0.6);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 26px rgba(126,249,255,0.9);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-card {
+      padding: 1rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(126,249,255,0.25);
+      background: rgba(3,9,30,0.96);
+      font-size: 0.9rem;
+    }
+
+    .contact-label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-value a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 3.2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      header { padding-top: 4rem; }
+      .hero-orbit, .hero-glow { display: none; }
+      section.content-section { padding: 1.9rem 1.6rem; }
+      .app-layout { grid-template-columns: minmax(0, 1fr); }
+      .profile-wrapper { flex-direction: column; align-items: flex-start; }
+      .profile-pic { margin: 0 auto; }
+    }
+    /* Rotating hero words */
+  .rotating-words {
+    display:inline-block;
+    animation: rotateWords 6s infinite;
+  }
+  @keyframes rotateWords {
+    0%,20% { content:"Astrobiology"; }
+    33%,53% { content:"Space Biology"; }
+    66%,86% { content:"Polar Research"; }
+  }
+  /* Lightbox */
+  .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.85); display:flex;
+    align-items:center; justify-content:center; opacity:0; pointer-events:none;
+    transition:opacity .3s; z-index:9999; }
+  .lightbox.active { opacity:1; pointer-events:all; }
+  .lightbox img { max-width:90%; max-height:90%; border-radius:12px; }
+</style>
+</head>
+<body>
+
+  <header class="fade-in">
+    <div class="hero-orbit"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-tagline">Exploring <span class="rotating-words">Astrobiology</span></div>
+      <h1>Giuseppe Muscari Tomajoli</h1>
+      <p class="hero-text">
+        Biologist exploring the limits of life in space and polar environments. My work bridges
+        <strong>astrobiology</strong>, <strong>plant photophysiology</strong> and <strong>Arctic field research</strong>,
+        with a focus on how organisms adapt to gravity, light and environmental stress beyond Earth.
+      </p>
+      <div class="hero-badges">
+        <div class="badge">Extreme Environments MSc</div>
+        <div class="badge">UNIS Arctic Field Course</div>
+        <div class="badge">ESA–ESTEC Thesis Project</div>
+        <div class="badge">Plant Health App</div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#academic">Academic Profile</a>
+    <a href="#thesis">Thesis Project</a>
+    <a href="#app">Plant Health App</a>
+    <a href="#svalbard">Svalbard Expedition</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main>
+    <!-- Sections shown one at a time via JavaScript -->
+    <section id="about" class="content-section fade-in">
+      <h2>About Me</h2>
+      <p class="section-subtitle">Astrobiology, plant physiology and polar fieldwork.</p>
+      <div class="profile-wrapper">
+        <img src="/mnt/data/5825466973855353618.jpg" alt="Profile picture" class="profile-pic" />
+        <div class="profile-text">
+          <p>
+            I am a biologist with a strong focus on <strong>astrobiology</strong> and the study of
+            <strong>life in extreme environments</strong>, currently pursuing a Master's degree in
+            <strong>Extreme Environments – Astrobiology Curriculum</strong> at the University of Naples Federico II.
+          </p>
+          <p>
+            My background combines <strong>microbiology, molecular biology, plant physiology, environmental
+            simulation systems and Arctic fieldwork</strong>. I have worked in research environments ranging from
+            clinical microbiology laboratories to astrobiology-oriented facilities, including the National
+            Research Council (CNR) in Pozzuoli and San Paolo Hospital in Naples.
+          </p>
+          <p>
+            I recently joined the <strong>Arctic Marine Molecular Ecology</strong> field course at the University
+            Centre in Svalbard (UNIS), investigating marine microorganisms and their adaptations to polar
+            conditions. My upcoming research includes a thesis project partly hosted at <strong>ESA–ESTEC</strong>,
+            focusing on plant photophysiology under simulated space conditions.
+          </p>
+          <div class="key-info">
+            <span class="pill">Based in Naples, Italy</span>
+            <span class="pill">Open to collaborations</span>
+            <span class="pill">Interested in PhD opportunities</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="academic" class="content-section fade-in">
+      <h2>Academic Profile</h2>
+      <p class="section-subtitle">Education, research experience and scientific output.</p>
+
+      <h3>Education & Training</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-label">2024 – present · MSc</div>
+          <div class="timeline-title">Extreme Environments (Astrobiology Curriculum)</div>
+          <div class="timeline-meta">University of Naples Federico II, Italy</div>
+          <div class="timeline-desc">
+            Research focus on the interplay between <strong>gravitropism</strong> and <strong>phototropism</strong>
+            in higher plants, with a biochemical analysis of <strong>Photosystem&nbsp;II</strong> under controlled
+            environmental and simulated space-related conditions.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">2025 · Field Course</div>
+          <div class="timeline-title">Arctic Marine Molecular Ecology</div>
+          <div class="timeline-meta">UNIS – University Centre in Svalbard, Longyearbyen (Norway)</div>
+          <div class="timeline-desc">
+            Training in molecular and ecological approaches to Arctic marine microorganisms, covering
+            biodiversity, DNA/RNA-based identification, microbial community analysis and environmental
+            data integration in polar regions.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">2020 – 2024 · BSc</div>
+          <div class="timeline-title">Biological Sciences (110/110)</div>
+          <div class="timeline-meta">University Parthenope of Naples, Italy</div>
+          <div class="timeline-desc">
+            Bachelor thesis titled <em>Effects of Simulated Space Conditions on the Metabolism of Extremophilic
+            Microorganisms</em>, combining controlled-environment experiments, spectrophotometry and
+            fluorescence microscopy.
+          </div>
+        </div>
+      </div>
+
+      <h3>Research Experience</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-label">2026 · Planned</div>
+          <div class="timeline-title">ESA–ESTEC (European Space Research and Technology Centre)</div>
+          <div class="timeline-meta">Noordwijk, Netherlands</div>
+          <div class="timeline-desc">
+            Thesis research at the Life and Physical Sciences and Life Support Laboratory, coordinated by
+            Dr. Jack van Loon. The project investigates the interaction between <strong>gravity</strong> and
+            <strong>light</strong> in higher plants, focusing on plant photophysiology and Photosystem II activity
+            under simulated space conditions.
+          </div>
+          <div class="tag-row">
+            <span class="tag">Plant photophysiology</span>
+            <span class="tag">Altered gravity</span>
+            <span class="tag">Space biology</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">2023 – 2024</div>
+          <div class="timeline-title">Research Intern – National Research Council (CNR)</div>
+          <div class="timeline-meta">Pozzuoli, Italy</div>
+          <div class="timeline-desc">
+            Work in microbiology and molecular biology, including PCR techniques, safe handling of biological
+            samples and analysis of clinical material for microbiological and molecular diagnostics.
+          </div>
+          <div class="tag-row">
+            <span class="tag">PCR</span>
+            <span class="tag">Clinical microbiology</span>
+            <span class="tag">Molecular diagnostics</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">2022 – 2023</div>
+          <div class="timeline-title">Research Trainee – San Paolo Hospital</div>
+          <div class="timeline-meta">Naples, Italy</div>
+          <div class="timeline-desc">
+            One-year research project on extremophiles, designing and executing experiments under simulated
+            space conditions to study metabolic adaptations and stress responses.
+          </div>
+          <div class="tag-row">
+            <span class="tag">Extremophiles</span>
+            <span class="tag">Space analogs</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">2024</div>
+          <div class="timeline-title">INAF – Italian National Institute for Astrophysics</div>
+          <div class="timeline-meta">Naples, Italy</div>
+          <div class="timeline-desc">
+            Commissioner for the XXII Italian Astronomy Championships, supervising the interregional round and
+            collaborating with researchers and university staff.
+          </div>
+        </div>
+      </div>
+
+      <h3>Publications</h3>
+      <p>
+        <strong>(In press, 2026)</strong> <em>Growth inhibition and altered phenology in woody species exposed to
+        urban air pollution</em>. Book chapter in <em>Morpho-anatomical and physiological responses of woody
+        species to urban air pollution</em>, Elsevier.
+      </p>
+      <p class="muted">
+        Author of sections 2.1 (Growth inhibition), 2.2.1 (Altered plant shape), 2.2.2 (Altered reproduction
+        capacity) and 2.2.3 (Suspended flowering and fruiting).
+      </p>
+
+      <h3>Honours & Awards</h3>
+      <p><strong>2025 – Winner, BIP "Power of Nature"</strong>, InHolland University of Applied Sciences.</p>
+
+      <h3>Core Skills & Languages</h3>
+      <p>
+        Biology · Laboratory techniques · Molecular and spectroscopic analysis · Environmental simulation systems ·
+        Plant physiology · Fieldwork in extreme and polar environments · Imaging and data analysis
+      </p>
+      <p class="muted">
+        Languages — Italian (native), English (C1), Spanish (B1).
+      </p>
+    </section>
+
+    <section id="thesis" class="content-section fade-in">
+      <h2>Thesis Project</h2>
+      <p class="section-subtitle">Gravitropism, phototropism and Photosystem II under altered gravity.</p>
+      <p>
+        My Master’s thesis explores how <strong>gravity</strong> and <strong>light</strong> interact to shape plant growth
+        and photosynthetic performance. I investigate the balance between <strong>gravitropism</strong> and
+        <strong>phototropism</strong> in higher plants, applying a biochemical and imaging-based approach to
+        characterize <strong>Photosystem II</strong>.
+      </p>
+      <p>
+        Using chlorophyll fluorescence parameters (e.g. <strong>Fv/Fm</strong>, non-photochemical quenching) and
+        environmental control, the project aims to quantify stress responses and photochemical efficiency under
+        conditions relevant for <strong>spaceflight</strong> and controlled bioregenerative systems.
+      </p>
+      <p class="muted">
+        This work connects plant biology, space physiology and the design of future life-support systems for
+        long-duration missions.
+      </p>
+    </section>
+
+    <section id="app" class="content-section fade-in">
+      <h2>Plant Health App</h2>
+      <p class="section-subtitle">A rule-based system to assess plant stress using photophysiological markers.</p>
+
+      <div class="app-layout">
+        <div>
+          <p>
+            The app evaluates the physiological status of higher plants using key photophysiological parameters such as
+            <strong>Fv/Fm</strong>, chlorophyll content, carotenoids, <strong>SPAD</strong>, <strong>qP</strong> and
+            <strong>qN</strong>. Reference ranges are derived from curated plant trait datasets (e.g. TRY), and a
+            <strong>rule-based engine</strong> provides an interpretation layer with stress levels and confidence scores.
+          </p>
+          <p>
+            Designed with space and extreme environments in mind, the app supports fast field assessments, linking
+            measurements to <strong>GPS location</strong> and camera-based acquisitions (RGB / NIR). It offers a
+            structured interface to monitor plant performance in both terrestrial and analog space conditions.
+          </p>
+          <a class="btn-primary" href="#">
+            <span>Open Plant Health App</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <div class="app-screen">
+          <div class="app-screen-header">
+            <span class="muted">Plant Health</span>
+            <div class="app-dot-row">
+              <span class="app-dot"></span>
+              <span class="app-dot"></span>
+              <span class="app-dot"></span>
+            </div>
+          </div>
+          <div class="app-metric-card">
+            <div>
+              <div class="metric-label">Fv/Fm</div>
+              <div class="metric-value metric-good">0.81</div>
+            </div>
+            <div class="muted">Optimal range</div>
+          </div>
+          <div class="app-metric-card">
+            <div>
+              <div class="metric-label">NPQ</div>
+              <div class="metric-value metric-warn">1.95</div>
+            </div>
+            <div class="muted">Mild stress</div>
+          </div>
+          <div class="app-metric-card">
+            <div>
+              <div class="metric-label">SPAD</div>
+              <div class="metric-value">41.2</div>
+            </div>
+            <div class="muted">Within reference</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="svalbard" class="content-section fade-in">
+      <h2>Svalbard Expedition 2025</h2>
+      <p class="section-subtitle">Fieldwork in the Arctic as a natural laboratory for astrobiology.</p>
+      <p>
+        From September to November 2025 I will join a scientific and educational programme in the Svalbard archipelago.
+        The Arctic provides a powerful terrestrial analog for extraterrestrial environments, combining low temperatures,
+        strong seasonality, intense radiation regimes and rapidly changing climate conditions.
+      </p>
+      <p>
+        Activities include <strong>sampling campaigns</strong>, environmental monitoring and documentation of biological
+        resilience in both marine and terrestrial ecosystems. This experience strengthens my interest in linking
+        <strong>polar research</strong> with <strong>astrobiology</strong> and the study of habitability beyond Earth.
+      </p>
+    </section>
+
+    <section id="gallery" class="content-section fade-in">
+      <h2>Photo Gallery</h2>
+      <p class="section-subtitle">Astrophotography, microscopy and extreme environments.</p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="gallery/photo1.jpg" alt="Placeholder image 1" />
+          
+        </div>
+        <div class="gallery-item">
+          <img src="gallery/photo2.jpg" alt="Placeholder image 2" />
+          
+        </div>
+        <div class="gallery-item">
+          <img src="gallery/photo3.jpg" alt="Placeholder image 3" />
+          
+        </div>
+        <div class="gallery-item">
+          <img src="gallery/photo4.jpg" alt="Placeholder image 4" />
+          
+        </div>
+      </div>
+    <div class="lightbox" id="lightbox"><img src="" alt="Expanded view"></div>
+</section>
+<section id="contact" class="content-section fade-in">
+      <h2>Contact</h2>
+      <p class="section-subtitle">Feel free to reach out for collaborations, projects or ideas.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:giuseppemuscari.gm@gmail.com">giuseppemuscari.gm@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">
+            <a href="https://www.linkedin.com/in/giuseppemuscaritomajoli/" target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/giuseppemuscaritomajoli
+            </a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Naples, Italy · Frequently in polar and field environments</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span>2025</span> Giuseppe Muscari Tomajoli — Astrobiology &amp; Extreme Environments
+  </footer>
+
+  <script>
+    // SPA navigation improved (smooth fade)
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('section.content-section');
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = lightbox.querySelector('img');
+
+      function hideAll(){ sections.forEach(s=>s.style.display='none'); }
+
+      function showSection(id){
+        const t=document.getElementById(id);
+        if(!t) return;
+        sections.forEach(sec=>{
+          sec.style.opacity=0;
+          sec.style.transform='translateY(20px)';
+          sec.style.transition='opacity .45s ease, transform .45s ease';
+        });
+        setTimeout(()=>{
+          hideAll();
+          t.style.display='block';
+          requestAnimationFrame(()=>{
+            t.style.opacity=1;
+            t.style.transform='translateY(0)';
+          });
+        },120);
+      }
+
+      function setActiveLink(id){
+        navLinks.forEach(l=>{
+          l.classList.toggle('active', l.getAttribute('href').substring(1)===id);
+        });
+      }
+
+      hideAll(); showSection('about'); setActiveLink('about');
+
+      navLinks.forEach(l=>l.addEventListener('click',e=>{
+        e.preventDefault();
+        const id=l.getAttribute('href').substring(1);
+        showSection(id); setActiveLink(id);
+      }));
+
+      document.querySelectorAll('.gallery-item img').forEach(img=>{
+        img.addEventListener('click',()=>{
+          lightboxImg.src=img.src;
+          lightbox.classList.add('active');
+        });
+      });
+      lightbox.addEventListener('click',()=> lightbox.classList.remove('active'));
+    });
+  </script>
+
+</body>
+</html>
