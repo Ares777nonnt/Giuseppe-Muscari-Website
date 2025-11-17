@@ -579,7 +579,6 @@
 }
   /* --- MOBILE PRO OPTIMIZATIONS --- */
   @media (max-width: 720px) {
-
     /* Reduce padding in panels */
     section.content-section {
       padding: 1.4rem 1rem;
@@ -587,6 +586,82 @@
     }
 
     /* Make the gallery 2 columns */
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    /* Larger lightbox on mobile */
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+
+    /* MOBILE NAVIGATION */
+    nav {
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
+
+    /* hide desktop links in nav bar */
+    nav a {
+      display: none;
+    }
+
+    /* Hamburger button */
+    .hamburger {
+      width: 28px;
+      height: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 11001;
+    }
+
+    .hamburger span {
+      height: 3px;
+      background: var(--accent);
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    /* Fullscreen centered mobile menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 5, 26, 0.97);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 11000;
+      padding: 2rem 1rem;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 0.9rem 1rem;
+      text-align: center;
+      color: var(--accent);
+      display: block;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+    }
+
+    .mobile-menu a + .mobile-menu a {
+      margin-top: 0.4rem;
+    }
+  }
+/* Make the gallery 2 columns */
     .gallery-grid {
       grid-template-columns: 1fr 1fr;
       gap: 0.6rem;
@@ -1033,7 +1108,7 @@
       </div>
     </section>
 
-    <section id="contact"" class="content-section fade-in">
+    <section id="contact" class="content-section fade-in">
       <h2>Contact</h2>
       <p class="section-subtitle">Feel free to reach out for collaborations, projects or ideas.</p>
 
@@ -1068,9 +1143,10 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section.content-section');
-    const const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
+    const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
     const mobileLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
-    const navLinks = [...desktopLinks, ...mobileLinks]^="#"]');
+    const navLinks = [...desktopLinks, ...mobileLinks];
+    const mobileMenu = document.querySelector('.mobile-menu');
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
@@ -1080,11 +1156,11 @@
     const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
     let currentIndex = 0;
 
-    function hideAll(){
+    function hideAll() {
       sections.forEach(s => s.style.display = 'none');
     }
 
-    function showSection(id){
+    function showSection(id) {
       const t = document.getElementById(id);
       if (!t) return;
       sections.forEach(sec => {
@@ -1098,28 +1174,33 @@
         requestAnimationFrame(() => {
           t.style.opacity = 1;
           t.style.transform = 'translateY(0)';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }, 120);
     }
 
-    function setActiveLink(id){
+    function setActiveLink(id) {
       navLinks.forEach(link => {
         const target = link.getAttribute('href').substring(1);
         link.classList.toggle('active', target === id);
       });
     }
 
-    // Navigation click handlers (single, clean)
+    // Navigation click handlers (desktop + mobile)
     navLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         const id = link.getAttribute('href').substring(1);
         showSection(id);
         setActiveLink(id);
+        // Close mobile menu after selection
+        if (mobileMenu && mobileMenu.classList.contains('active')) {
+          mobileMenu.classList.remove('active');
+        }
       });
     });
 
-    // Initialize first section
+    // Initialize first section for SPA behaviour
     hideAll();
     showSection('about');
     setActiveLink('about');
