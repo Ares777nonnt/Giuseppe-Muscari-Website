@@ -881,6 +881,32 @@
         </div>
       </div>
 
+    <section id="contact" class="content-section fade-in">
+      <h2>Contact</h2>
+      <p class="section-subtitle">Feel free to reach out for collaborations, projects or ideas.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:giuseppemuscari.gm@gmail.com">giuseppemuscari.gm@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">
+            <a href="https://www.linkedin.com/in/giuseppemuscaritomajoli/" target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/giuseppemuscaritomajoli
+            </a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Naples, Italy · Frequently in polar and field environments</div>
+        </div>
+      </div>
+    </section>
+
       <div class="lightbox" id="lightbox">
     <button class="lightbox-prev">&#10094;</button>
     <img src="" alt="Expanded view" />
@@ -900,6 +926,51 @@
     const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
     let currentIndex = 0;
 
+    function hideAll(){
+      sections.forEach(s => s.style.display = 'none');
+    }
+
+    function showSection(id){
+      const t = document.getElementById(id);
+      if (!t) return;
+      sections.forEach(sec => {
+        sec.style.opacity = 0;
+        sec.style.transform = 'translateY(20px)';
+        sec.style.transition = 'opacity .45s ease, transform .45s ease';
+      });
+      setTimeout(() => {
+        hideAll();
+        t.style.display = 'block';
+        requestAnimationFrame(() => {
+          t.style.opacity = 1;
+          t.style.transform = 'translateY(0)';
+        });
+      }, 120);
+    }
+
+    function setActiveLink(id){
+      navLinks.forEach(link => {
+        const target = link.getAttribute('href').substring(1);
+        link.classList.toggle('active', target === id);
+      });
+    }
+
+    // Navigation click handlers (single, clean)
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const id = link.getAttribute('href').substring(1);
+        showSection(id);
+        setActiveLink(id);
+      });
+    });
+
+    // Initialize first section
+    hideAll();
+    showSection('about');
+    setActiveLink('about');
+
+    // Lightbox logic
     function openLightbox(index) {
       currentIndex = index;
       lightboxImg.src = galleryImages[index].src;
@@ -938,52 +1009,6 @@
       if (e.key === 'ArrowRight') showNext();
       if (e.key === 'ArrowLeft') showPrev();
     });
-
-    function hideAll(){ sections.forEach(s=>s.style.display='none'); }
-    function showSection(id){
-      const t=document.getElementById(id);
-      if(!t) return;
-      sections.forEach(sec=>{
-        sec.style.opacity=0;
-        sec.style.transform='translateY(20px)';
-        sec.style.transition='opacity .45s ease, transform .45s ease';
-      });
-      setTimeout(()=>{
-        hideAll();
-        t.style.display='block';
-        requestAnimationFrame(()=>{
-          t.style.opacity=1;
-          t.style.transform='translateY(0)';
-        });
-      },120);
-    }
-    function setActiveLink(id) {
-      navLinks.forEach(link => {
-        const target = link.getAttribute('href').substring(1);
-        link.classList.toggle('active', target === id);
-      });
-    }
-
-    // Clean event listeners
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const id = link.getAttribute('href').substring(1);
-        showSection(id);
-        setActiveLink(id);
-      });
-    });
-
-    // Original line restored to keep code structure
-    navLinks.forEach(l=>l.addEventListener('click',e=>{
-      e.preventDefault();
-      const id=l.getAttribute('href').substring(1);
-      // Ensure contact section exists and is selectable
-      showSection(id);
-      setActiveLink(id);
-    }));(l=>l.classList.toggle('active', l.getAttribute('href').substring(1)===id)); }
-    hideAll(); showSection('about'); setActiveLink('about');
-    navLinks.forEach(l=>l.addEventListener('click',e=>{ e.preventDefault(); const id=l.getAttribute('href').substring(1); showSection(id); setActiveLink(id);}));
   });
 </script>
 
