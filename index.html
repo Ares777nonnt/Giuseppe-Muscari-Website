@@ -565,7 +565,16 @@
     align-items:center; justify-content:center; opacity:0; pointer-events:none;
     transition:opacity .3s; z-index:9999; }
   .lightbox.active { opacity:1; pointer-events:all; }
-  .lightbox img { max-width:90%; max-height:90%; border-radius:12px; }
+  .lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin: 0;
+  padding: 0;
+}
 </style>
 </head>
 <body>
@@ -606,7 +615,7 @@
       <h2>About Me</h2>
       <p class="section-subtitle">Astrobiology, plant physiology and polar fieldwork.</p>
       <div class="profile-wrapper">
-        <img src="/mnt/data/5825466973855353618.jpg" alt="Profile picture" class="profile-pic" />
+        <img src="assets/profile/profile.jpg" alt="Profile picture" class="profile-pic" />
         <div class="profile-text">
           <p>
             I am a biologist with a strong focus on <strong>astrobiology</strong> and the study of
