@@ -1,907 +1,88 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Giuseppe Muscari Tomajoli – Astrobiology & Extreme Environments</title>
-  <style>
-    /* Hide hamburger by default (desktop) */
-    .hamburger {
-  display: none !important;
-}
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-    :root {
-      --bg-space: #020314;
-      --bg-panel: rgba(7, 12, 40, 0.92);
-      --bg-panel-soft: rgba(8, 16, 55, 0.85);
-      --accent: #7ef9ff;
-      --accent-soft: #3ad0ff;
-      --accent-secondary: #ff6ad5;
-      --text-main: #e9f3ff;
-      --text-muted: #9aa7c7;
-      --border-glow: 0 0 18px rgba(126, 249, 255, 0.4);
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at 10% 0%, #15153a 0, transparent 40%),
-        radial-gradient(circle at 90% 0%, #310d47 0, transparent 45%),
-        radial-gradient(circle at 50% 100%, #041b2f 0, #020314 65%);
-      color: var(--text-main);
-      overflow-x: hidden;
-    }
-
-    /* Subtle starfield effect */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.24) 0, transparent 50%),
-        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.18) 0, transparent 50%),
-        radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.22) 0, transparent 50%),
-        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.16) 0, transparent 50%);
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* Smooth fade-in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fadeIn 0.8s forwards;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header {
-      text-align: center;
-      padding: 5rem 1.5rem 4rem;
-      position: relative;
-      /* overflow removed so lightbox can escape */
-      /* overflow: hidden; */
-    }
-
-    .hero-orbit {
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
-      border: 1px solid rgba(126, 249, 255, 0.3);
-      top: -120px;
-      left: calc(50% - 260px);
-      opacity: 0.35;
-      filter: drop-shadow(0 0 22px rgba(126,249,255,0.7));
-    }
-
-    .hero-orbit::before,
-    .hero-orbit::after {
-      content: '';
-      position: absolute;
-      inset: 18%;
-      border-radius: 50%;
-      border: 1px dashed rgba(255,255,255,0.15);
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(122,249,255,0.35), transparent 60%);
-      top: -40px;
-      left: calc(50% - 210px);
-      filter: blur(2px);
-      opacity: 0.9;
-    }
-
-    header .hero-inner {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    header h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 4vw, 3.2rem);
-      margin: 0 0 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .hero-tagline {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--accent);
-      margin-bottom: 1.3rem;
-    }
-
-    header p.hero-text {
-      margin: 0 auto;
-      max-width: 640px;
-      font-size: 0.98rem;
-      color: var(--text-muted);
-    }
-
-    .hero-badges {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .badge {
-      border-radius: 999px;
-      border: 1px solid rgba(126,249,255,0.35);
-      padding: 0.35rem 0.9rem;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      background: linear-gradient(120deg, rgba(6,13,48,0.9), rgba(8,26,66,0.8));
-      box-shadow: var(--border-glow);
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.6rem;
-      background: rgba(2, 5, 26, 0.97);
-      padding: 0.85rem 1.5rem;
-      backdrop-filter: blur(18px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(126,249,255,0.16);
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      position: relative;
-      padding-bottom: 0.25rem;
-      transition: color 0.25s ease, transform 0.25s ease;
-      display: inline-block;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
-      transition: width 0.25s ease;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    nav a.active::after,
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    main {
-      padding: 2rem 1rem 4rem;
-    }
-
-    section.content-section {
-      max-width: 1040px;
-      margin: 3rem auto;
-      background: linear-gradient(135deg, var(--bg-panel), var(--bg-panel-soft));
-      border: 1px solid rgba(168, 214, 255, 0.22);
-      padding: 2.4rem 2.2rem;
-      border-radius: 20px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.7), var(--border-glow);
-      position: relative;
-      overflow: visible;
-    }
-
-    section.content-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 42px 42px;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    h2 {
-      color: var(--accent);
-      margin-top: 0;
-      font-family: 'Space Grotesk', sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-size: 1.1rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .section-subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-    }
-
-    h3 {
-      color: #e4ecff;
-      margin-top: 1.9rem;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    p {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--text-main);
-    }
-
-    .muted { color: var(--text-muted); }
-
-    .profile-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.8rem;
-      align-items: center;
-    }
-
-    .profile-pic {
-      width: 190px;
-      height: 190px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(126,249,255,0.7);
-      box-shadow: 0 0 30px rgba(126,249,255,0.7);
-      flex-shrink: 0;
-    }
-
-    .profile-text { flex: 1 1 260px; }
-
-    .key-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .pill {
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      background: rgba(2,7,28,0.8);
-    }
-
-    /* Timeline for Academic Profile */
-    .timeline {
-      position: relative;
-      margin-top: 1.5rem;
-      padding-left: 1.2rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), rgba(126,249,255,0));
-      opacity: 0.7;
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 1.4rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1px;
-      top: 0.35rem;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffffff, var(--accent));
-      box-shadow: 0 0 12px rgba(126,249,255,0.9);
-    }
-
-    .timeline-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent-soft);
-      margin-bottom: 0.15rem;
-    }
-
-    .timeline-title {
-      font-weight: 600;
-      color: #e6eeff;
-      margin-bottom: 0.1rem;
-    }
-
-    .timeline-meta {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.1rem;
-    }
-
-    .timeline-desc {
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 0.6rem;
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(126,249,255,0.35);
-      color: var(--accent);
-      background: rgba(4, 19, 45, 0.95);
-    }
-
-    /* Gallery */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 1.6rem;
-    }
-
-    .gallery-item {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.2), transparent 55%);
-      border: 1px solid rgba(179, 218, 255, 0.2);
-      aspect-ratio: 4 / 3;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-      opacity: 0.86;
-    }
-
-    .gallery-item:hover img { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 18px rgba(126,249,255,0.55)); }
-
-    .gallery-label {
-      position: absolute;
-      left: 0.75rem;
-      bottom: 0.6rem;
-      font-size: 0.8rem;
-      padding: 0.18rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(3, 6, 20, 0.84);
-      color: var(--accent);
-      border: 1px solid rgba(126,249,255,0.6);
-    }
-
-    /* App section */
-    .app-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .app-card {
-      position: relative;
-      border-radius: 26px;
-      border: 1px solid rgba(126,249,255,0.35);
-      padding: 1.4rem 1.2rem;
-      background: radial-gradient(circle at 10% 0, rgba(126,249,255,0.22), transparent 55%),
-                  radial-gradient(circle at 90% 100%, rgba(255,106,213,0.15), transparent 55%),
-                  rgba(2,7,28,0.92);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.8);
-    }
-
-    .app-screen {
-      width: 100%;
-      max-width: 260px;
-      margin: 0 auto;
-      border-radius: 30px;
-      padding: 1rem 0.9rem;
-      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.3), transparent 60%),
-                  #020616;
-      border: 1px solid rgba(160, 210, 255, 0.7);
-      box-shadow: 0 0 26px rgba(126,249,255,0.7);
-    }
-
-    .app-screen-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .app-dot-row {
-      display: flex;
-      gap: 0.18rem;
-    }
-
-    .app-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.35);
-    }
-
-    .app-metric-card {
-      margin-top: 0.5rem;
-      border-radius: 12px;
-      padding: 0.55rem 0.65rem;
-      background: rgba(5,19,50,0.95);
-      border: 1px solid rgba(126,249,255,0.35);
-      font-size: 0.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text-main);
-    }
-
-    .metric-label { color: var(--text-muted); }
-    .metric-value { font-weight: 600; }
-    .metric-good { color: #8bffb2; }
-    .metric-warn { color: #ffd27f; }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-top: 1.5rem;
-      padding: 0.55rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid rgba(126,249,255,0.6);
-      background: radial-gradient(circle at 0 0, rgba(126,249,255,0.5), transparent 60%),
-                  rgba(4, 21, 60, 0.98);
-      color: #f3fbff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 0 18px rgba(126,249,255,0.6);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 26px rgba(126,249,255,0.9);
-    }
-
-    /* Contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.4rem;
-      margin-top: 1.5rem;
-    }
-
-    .contact-card {
-      padding: 1rem 1.1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(126,249,255,0.25);
-      background: rgba(3,9,30,0.96);
-      font-size: 0.9rem;
-    }
-
-    .contact-label {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-bottom: 0.3rem;
-    }
-
-    .contact-value a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 1rem 3.2rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-
-    footer span {
-      color: var(--accent);
-    }
-
-    @media (max-width: 720px) {
-  /* Show hamburger only on mobile */
-  .hamburger {
-    display: flex !important;
-  }
-    /* Show hamburger only on mobile */
-    .hamburger { display: flex !important; }
-      header { padding-top: 4rem; }
-      .hero-orbit, .hero-glow { display: none; }
-      section.content-section { padding: 1.9rem 1.6rem; }
-      .app-layout { grid-template-columns: minmax(0, 1fr); }
-      .profile-wrapper { flex-direction: column; align-items: flex-start; }
-      .profile-pic { margin: 0 auto; }
-    }
-    /* Rotating hero words */
-  .rotating-words {
-    display:inline-block;
-    animation: rotateWords 6s infinite;
-  }
-  @keyframes rotateWords {
-    0%,20% { content:"Astrobiology"; }
-    33%,53% { content:"Space Biology"; }
-    66%,86% { content:"Polar Research"; }
-  }
-  /* Lightbox */
-  .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.85); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; z-index:20000; }
-  .lightbox.active { opacity:1; pointer-events:all; }
-  .lightbox img {
-  max-width: 60vw;
-  max-height: 60vh;
-  width: auto;
-  height: auto;
-  transform: none;
-  object-fit: contain;
-  border-radius: 12px;
-  margin: 0;
-  padding: 0;
-}
-  /* --- MOBILE PRO OPTIMIZATIONS --- */
-  @media (max-width: 720px) {
-    /* Reduce padding in panels */
-    section.content-section {
-      padding: 1.4rem 1rem;
-      margin: 1.6rem auto;
-    }
-
-    /* Make the gallery 2 columns */
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    /* Larger lightbox on mobile */
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 80vh;
-    }
-
-    /* MOBILE NAVIGATION */
-    nav {
-      justify-content: space-between;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-    }
-
-    /* hide desktop links in nav bar */
-    nav a {
-      display: none;
-    }
-
-    /* Hamburger button */
-    .hamburger {
-      width: 28px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      z-index: 11001;
-    }
-
-    .hamburger span {
-      height: 3px;
-      background: var(--accent);
-      border-radius: 4px;
-      width: 100%;
-    }
-
-    /* Fullscreen centered mobile menu */
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 5, 26, 0.97);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 11000;
-      padding: 2rem 1rem;
-    }
-
-    .mobile-menu.active {
-      display: flex;
-    }
-
-    .mobile-menu a {
-      padding: 0.9rem 1rem;
-      text-align: center;
-      color: var(--accent);
-      display: block;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      text-decoration: none;
-    }
-
-    .mobile-menu a + .mobile-menu a {
-      margin-top: 0.4rem;
-    }
-  }
-/* Make the gallery 2 columns */
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    /* Larger lightbox on mobile */
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 80vh;
-    }
-
-    /* MOBILE NAVIGATION - FIXED */
-    nav {
-      justify-content: space-between;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-    }
-
-    /* hide desktop links */
-    nav a { display: none; }
-
-    .hamburger {
-      width: 28px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      z-index: 10000;
-    }
-
-    .hamburger span {
-      height: 3px;
-      background: var(--accent);
-      border-radius: 4px;
-      width: 100%;
-    }
-
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background: rgba(2, 5, 26, 0.97);
-      position: absolute;
-      top: 50px;
-      left: 0;
-      width: 100%;
-      padding: 1rem 0;
-      border-top: 1px solid rgba(126,249,255,0.16);
-      z-index: 9998;
-    }
-
-    .mobile-menu.active {
-      display: flex;
-    }
-
-    .mobile-menu a {
-      padding: 1rem;
-      text-align: center;
-      color: var(--accent);
-      display: block;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .mobile-menu a:last-child { border-bottom:none; }
-
-    /* Hide regular links */
-    nav a {
-      display: none;
-    }
-
-    /* Hamburger button */
-    .hamburger {
-      width: 28px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      height: 3px;
-      background: var(--accent);
-      border-radius: 4px;
-      width: 100%;
-    }
-
-    /* Mobile dropdown menu */
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background: rgba(2, 5, 26, 0.97);
-      position: absolute;
-      top: 58px;
-      left: 0;
-      width: 100%;
-      padding: 1rem 0;
-      border-top: 1px solid rgba(126,249,255,0.16);
-      z-index: 9999;
-    }
-
-    .mobile-menu a {
-      padding: 1rem;
-      text-align: center;
-      color: var(--accent);
-      display: block;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .mobile-menu a:last-child {
-      border-bottom: none;
-    }
-  }
-@media (min-width: 721px) { .hamburger { display: none !important; } .mobile-menu { display: none !important; } }
-
-/* Override mobile menu to keep it centered fullscreen */
-@media (max-width: 720px) {
-  .mobile-menu {
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(2,5,26,0.97) !important;
-    display: none;
-    flex-direction: column;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 2rem 1rem !important;
-  }
-  .mobile-menu.active { display: flex !important; }
-}
-
-@media (min-width: 721px) { nav a { display: inline-block !important; } }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Giuseppe Muscari Tomajoli — plant photophysiology, space biology, Arctic fieldwork and research tools.">
+<title>Giuseppe Muscari Tomajoli | Research Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+:root{color-scheme:light;--ink:#19342c;--paper:#f7f5ed;--accent:#295d48;--muted:#526158;--line:#cbd3c7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,system-ui,sans-serif}
+a{color:var(--accent);text-underline-offset:.24em}
+a:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+nav,main,footer,.hero-inner{width:min(1120px, calc(100% - 3rem));margin:auto}
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;padding:1.1rem 0}
+nav a{text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.nav-links{display:flex;flex-wrap:wrap;gap:.35rem 1.2rem}
+header{background:#193b30;color:#fffdf1}
+.hero-inner{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,6rem);align-items:center;padding:clamp(2rem,6vw,6rem) 0}
+.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;max-height:520px}
+.hero-inner a{color:inherit}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+h1,h2,h3,.card-title{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.04;margin:0 0 .55em}
+h1{font-size:clamp(3.5rem,8vw,7.8rem);letter-spacing:-.045em}
+h2{font-size:clamp(2.6rem,5vw,4.4rem);letter-spacing:-.025em}
+h3,.card-title{font-size:clamp(1.6rem,3vw,2.25rem)}
+section{padding:clamp(2.5rem,6vw,5rem) 0;border-bottom:1px solid var(--line)}
+p{max-width:72ch}
+section .section-subtitle,.muted,.timeline-meta{color:var(--muted)}
+.cards,.gallery-grid,.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.card,.timeline-item,.contact-card{border:1px solid var(--line);padding:1.4rem;background:#fffdf7;overflow-wrap:anywhere}
+.timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-bottom:2rem}
+.timeline-label,.tag-row,.contact-label{font-size:.82rem;color:var(--muted)}
+.timeline-title{font-weight:700;margin:.3rem 0}
+.tag-row,.timeline-desc{margin-top:.8rem}
+.tag+.tag::before{content:" · "}
+.gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+footer{padding:2rem 0}
+@media(max-width:660px){.hero-inner,.cards,.timeline,.gallery-grid,.contact-grid{grid-template-columns:1fr}.hero-photo{aspect-ratio:4/3;object-position:center 35%}}
 </style>
 </head>
 <body>
-
-  <header class="fade-in">
-    <div class="hero-orbit"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-inner">
-      <div class="hero-tagline">Exploring <span class="rotating-words">Astrobiology</span></div>
-      <h1>Giuseppe Muscari Tomajoli</h1>
-      <p class="hero-text">
-        Biologist exploring the limits of life in space and polar environments. My work bridges
-        <strong>astrobiology</strong>, <strong>plant photophysiology</strong> and <strong>Arctic field research</strong>,
-        with a focus on how organisms adapt to gravity, light and environmental stress beyond Earth.
-      </p>
-      <div class="hero-badges">
-        <div class="badge">Extreme Environments MSc</div>
-        <div class="badge">UNIS Arctic Field Course</div>
-        <div class="badge">ESA–ESTEC Thesis Project</div>
-        <div class="badge">Plant Health App</div>
-      </div>
-    </div>
-  </header>
-
-  <nav style="position: sticky; top:0;">
-    <div class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
-      <span></span><span></span><span></span>
-    </div>
-    <a href="#about">About</a>
-    <a href="#academic">Academic Profile</a>
-    <a href="#thesis">Thesis Project</a>
-    <a href="#app">Plant Health App</a>
-    <a href="#svalbard">Svalbard Expedition</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="mobile-menu">
-    <a href="#about">About</a>
-    <a href="#academic">Academic Profile</a>
-    <a href="#thesis">Thesis Project</a>
-    <a href="#app">Plant Health App</a>
-    <a href="#svalbard">Svalbard Expedition</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
+<nav aria-label="Main navigation">
+  <a href="#about">Giuseppe Muscari Tomajoli</a>
+  <div class="nav-links"><a href="#research">Research</a><a href="#svalbard">Fieldwork</a><a href="#app">Tools</a><a href="#academic">Academic profile</a><a href="#contact">Contact</a></div>
+</nav>
+<header id="about">
+  <div class="hero-inner">
+    <div><p class="eyebrow">PhD in Biology · University of Naples Federico II</p>
+    <h1>Giuseppe<br>Muscari Tomajoli</h1>
+    <p>I study how plants respond to changes in light and gravity. My work brings together plant photophysiology, astrobiology and field experience in the Arctic.</p>
+    <a href="#research">Explore my research ↓</a></div>
+    <img class="hero-photo" src="assets/profile/profile.jpg" alt="Portrait of Giuseppe Muscari Tomajoli">
   </div>
-
-  <main>
-    <!-- Sections shown one at a time via JavaScript -->
-    <section id="about" class="content-section fade-in">
-      <h2>About Me</h2>
-      <p class="section-subtitle">Astrobiology, plant physiology and polar fieldwork.</p>
-      <div class="profile-wrapper">
-        <img src="assets/profile/profile.jpg" alt="Profile picture" class="profile-pic" />
-        <div class="profile-text">
-          <p>
-            I am a biologist with a strong focus on <strong>astrobiology</strong> and the study of
-            <strong>life in extreme environments</strong>, currently pursuing a Master's degree in
-            <strong>Extreme Environments – Astrobiology Curriculum</strong> at the University of Naples Federico II.
-          </p>
-          <p>
-            My background combines <strong>microbiology, molecular biology, plant physiology, environmental
-            simulation systems and Arctic fieldwork</strong>. I have worked in research environments ranging from
-            clinical microbiology laboratories to astrobiology-oriented facilities, including the National
-            Research Council (CNR) in Pozzuoli and San Paolo Hospital in Naples.
-          </p>
-          <p>
-            I recently joined the <strong>Arctic Marine Molecular Ecology</strong> field course at the University
-            Centre in Svalbard (UNIS), investigating marine microorganisms and their adaptations to polar
-            conditions. My upcoming research includes a thesis project partly hosted at <strong>ESA–ESTEC</strong>,
-            focusing on plant photophysiology under simulated space conditions.
-          </p>
-          <div class="key-info">
-            <span class="pill">Based in Naples, Italy</span>
-            <span class="pill">Open to collaborations</span>
-            <span class="pill">Interested in PhD opportunities</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="academic" class="content-section fade-in">
+</header>
+<main>
+<section id="research">
+  <h2>Research</h2>
+  <div class="cards">
+    <article class="card"><p class="eyebrow">Doctoral research</p><h3>Green Lung</h3><p>I am designing a controlled-light experiment to compare C3 and CAM plants. I mapped the LED spectra and measured photosynthetic photon flux density at the plant support surface as part of the experimental setup.</p></article>
+    <article class="card" id="thesis"><p class="eyebrow">Master’s thesis</p><h3>Plants under altered gravity</h3><p>My thesis investigates how light and gravity shape plant responses, with a focus on gravitropism, phototropism and Photosystem II. The approach combines biochemical measurements, imaging and chlorophyll fluorescence.</p><p>Supervisor · <a href="https://tinyurl.com/ms4nby65?supervisor=arena">Prof. Carmen Arena</a></p></article>
+  </div>
+</section>
+<section id="svalbard">
+  <p class="eyebrow">Longyearbyen, Norway · 2025</p><h2>Arctic fieldwork</h2>
+  <p>At the University Centre in Svalbard (UNIS), I took the Arctic Marine Molecular Ecology field course. The programme covered Arctic marine microbial diversity and molecular approaches to studying communities in polar environments.</p>
+  <a href="#gallery">View field photographs ↓</a>
+</section>
+<section id="app">
+  <h2>Research tools</h2>
+  <div class="cards">
+    <article class="card"><h3>Plant Health Checker</h3><p>A rule-based tool for interpreting plant stress indicators such as chlorophyll fluorescence, pigment content and SPAD readings.</p><a href="https://github.com/Ares777nonnt/Plant-Health-Checker">Source code ↗</a> · <a href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/">Open app ↗</a></article>
+    <article class="card"><h3>Provette &amp; Appunti</h3><p>A lab notebook for recording experimental work in plain language and following the history of samples and experiments.</p><a href="https://green-lung-lab-notebook.giuseppe-muscari.chatgpt.site">Open lab notebook ↗</a></article>
+  </div>
+</section>
+<section id="academic" >
       <h2>Academic Profile</h2>
       <p class="section-subtitle">Education, research experience and scientific output.</p>
 
       <h3>Education & Training</h3>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-label">2024 – present · MSc</div>
+          <div class="timeline-label">MSc · Extreme Environments</div>
           <div class="timeline-title">Extreme Environments (Astrobiology Curriculum)</div>
           <div class="timeline-meta">University of Naples Federico II, Italy</div>
           <div class="timeline-desc">
@@ -937,7 +118,7 @@
       <h3>Research Experience</h3>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-label">2026 · Planned</div>
+          <div class="timeline-label">MSc thesis · Research plan</div>
           <div class="timeline-title">ESA–ESTEC (European Space Research and Technology Centre)</div>
           <div class="timeline-meta">Noordwijk, Netherlands</div>
           <div class="timeline-desc">
@@ -1016,127 +197,29 @@
         Languages — Italian (native), English (C1), Spanish (B1).
       </p>
     </section>
-
-    <section id="thesis" class="content-section fade-in">
-      <h2>Thesis Project</h2>
-      <p class="section-subtitle">Gravitropism, phototropism and Photosystem II under altered gravity.</p>
-      <p>
-        My Master’s thesis explores how <strong>gravity</strong> and <strong>light</strong> interact to shape plant growth
-        and photosynthetic performance. I investigate the balance between <strong>gravitropism</strong> and
-        <strong>phototropism</strong> in higher plants, applying a biochemical and imaging-based approach to
-        characterize <strong>Photosystem II</strong>.
-      </p>
-      <p>
-        Using chlorophyll fluorescence parameters (e.g. <strong>Fv/Fm</strong>, non-photochemical quenching) and
-        environmental control, the project aims to quantify stress responses and photochemical efficiency under
-        conditions relevant for <strong>spaceflight</strong> and controlled bioregenerative systems.
-      </p>
-      <p class="muted">
-        This work connects plant biology, space physiology and the design of future life-support systems for
-        long-duration missions. <br><br>
-        <strong>Supervisor:</strong> <a href="https://tinyurl.com/ms4nby65?supervisor=arena" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">Prof. Carmen Arena ↗</a>, space physiology and the design of future life-support systems for
-        long-duration missions.
-      </p>
-    </section>
-
-    <section id="app" class="content-section fade-in">
-      <h2>Plant Health App</h2>
-      <p class="section-subtitle">A rule-based system to assess plant stress using photophysiological markers.</p>
-
-      <div class="app-layout">
-        <div>
-          <p>
-            The app evaluates the physiological status of higher plants using key photophysiological parameters such as
-            <strong>Fv/Fm</strong>, chlorophyll content, carotenoids, <strong>SPAD</strong>, <strong>qP</strong> and
-            <strong>qN</strong>. Reference ranges are derived from curated plant trait datasets (e.g. TRY), and a
-            <strong>rule-based engine</strong> provides an interpretation layer with stress levels and confidence scores.
-          </p>
-          <p>
-            Designed with space and extreme environments in mind, the app supports fast field assessments, linking
-            measurements to <strong>GPS location</strong> and camera-based acquisitions (RGB / NIR). It offers a
-            structured interface to monitor plant performance in both terrestrial and analog space conditions.
-          </p>
-          <a class="btn-primary" href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/" target="_blank" rel="noopener noreferrer">
-            <span>Open Plant Health App</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="app-screen">
-          <div class="app-screen-header">
-            <span class="muted">Plant Health</span>
-            <div class="app-dot-row">
-              <span class="app-dot"></span>
-              <span class="app-dot"></span>
-              <span class="app-dot"></span>
-            </div>
-          </div>
-          <div class="app-metric-card">
-            <div>
-              <div class="metric-label">Fv/Fm</div>
-              <div class="metric-value metric-good">0.81</div>
-            </div>
-            <div class="muted">Optimal range</div>
-          </div>
-          <div class="app-metric-card">
-            <div>
-              <div class="metric-label">NPQ</div>
-              <div class="metric-value metric-warn">1.95</div>
-            </div>
-            <div class="muted">Mild stress</div>
-          </div>
-          <div class="app-metric-card">
-            <div>
-              <div class="metric-label">SPAD</div>
-              <div class="metric-value">41.2</div>
-            </div>
-            <div class="muted">Within reference</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    </section>
-
-    <section id="svalbard" class="content-section fade-in">
-      <h2>Svalbard Expedition 2025</h2>
-      <p class="section-subtitle">Fieldwork in the Arctic as a natural laboratory for astrobiology.</p>
-      <p>
-        From September to November 2025 I will join a scientific and educational programme in the Svalbard archipelago.
-        The Arctic provides a powerful terrestrial analog for extraterrestrial environments, combining low temperatures,
-        strong seasonality, intense radiation regimes and rapidly changing climate conditions.
-      </p>
-      <p>
-        Activities include <strong>sampling campaigns</strong>, environmental monitoring and documentation of biological
-        resilience in both marine and terrestrial ecosystems. This experience strengthens my interest in linking
-        <strong>polar research</strong> with <strong>astrobiology</strong> and the study of habitability beyond Earth.
-      </p>
-    </section>
-
-    <section id="gallery" class="content-section fade-in">
+<section id="gallery" >
       <h2>Photo Gallery</h2>
-      <p class="section-subtitle">Astrophotography, microscopy and extreme environments.</p>
+      <p class="section-subtitle">Photographs from Svalbard.</p>
 
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="assets/gallery/SvalBN1.webp" alt="Svalbard photo 1" />
+          <a href="assets/gallery/SvalBN1.webp"><img loading="lazy" src="assets/gallery/SvalBN1.webp" alt="Svalbard photo 1" /></a>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/gallery/SvalBN2.webp" alt="Svalbard photo 2" />
+          <a href="assets/gallery/SvalBN2.webp"><img loading="lazy" src="assets/gallery/SvalBN2.webp" alt="Svalbard photo 2" /></a>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/gallery/SvalAurora1.webp" alt="Niskin sampling in Svalbard" />
+          <a href="assets/gallery/SvalAurora1.webp"><img loading="lazy" src="assets/gallery/SvalAurora1.webp" alt="Aurora in Svalbard" /></a>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/gallery/SvalSoccorso.webp" alt="Rescue training in Svalbard" />
+          <a href="assets/gallery/SvalSoccorso.webp"><img loading="lazy" src="assets/gallery/SvalSoccorso.webp" alt="Rescue training in Svalbard" /></a>
         </div>
       </div>
     </section>
-
-    <section id="contact" class="content-section fade-in">
+<section id="contact" >
       <h2>Contact</h2>
       <p class="section-subtitle">Feel free to reach out for collaborations, projects or ideas.</p>
 
@@ -1157,123 +240,11 @@
         </div>
         <div class="contact-card">
           <div class="contact-label">Location</div>
-          <div class="contact-value">Naples, Italy · Frequently in polar and field environments</div>
+          <div class="contact-value">Naples, Italy</div>
         </div>
       </div>
     </section>
-
-      <div class="lightbox" id="lightbox">
-    <button class="lightbox-prev">&#10094;</button>
-    <img src="" alt="Expanded view" />
-    <button class="lightbox-next">&#10095;</button>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section.content-section');
-    const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
-    const mobileLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
-    const navLinks = [...desktopLinks, ...mobileLinks];
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    const btnPrev = lightbox.querySelector('.lightbox-prev');
-    const btnNext = lightbox.querySelector('.lightbox-next');
-
-    const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
-    let currentIndex = 0;
-
-    function hideAll() {
-      sections.forEach(s => s.style.display = 'none');
-    }
-
-    function showSection(id) {
-      const t = document.getElementById(id);
-      if (!t) return;
-      sections.forEach(sec => {
-        sec.style.opacity = 0;
-        sec.style.transform = 'translateY(20px)';
-        sec.style.transition = 'opacity .45s ease, transform .45s ease';
-      });
-      setTimeout(() => {
-        hideAll();
-        t.style.display = 'block';
-        requestAnimationFrame(() => {
-          t.style.opacity = 1;
-          t.style.transform = 'translateY(0)';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }, 120);
-    }
-
-    function setActiveLink(id) {
-      navLinks.forEach(link => {
-        const target = link.getAttribute('href').substring(1);
-        link.classList.toggle('active', target === id);
-      });
-    }
-
-    // Navigation click handlers (desktop + mobile)
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const id = link.getAttribute('href').substring(1);
-        showSection(id);
-        setActiveLink(id);
-        // Close mobile menu after selection
-        if (mobileMenu && mobileMenu.classList.contains('active')) {
-          mobileMenu.classList.remove('active');
-        }
-      });
-    });
-
-    // Initialize first section for SPA behaviour
-    hideAll();
-    showSection('about');
-    setActiveLink('about');
-
-    // Lightbox logic
-    function openLightbox(index) {
-      currentIndex = index;
-      lightboxImg.src = galleryImages[index].src;
-      lightbox.classList.add('active');
-    }
-
-    function showNext() {
-      currentIndex = (currentIndex + 1) % galleryImages.length;
-      lightboxImg.src = galleryImages[currentIndex].src;
-    }
-
-    function showPrev() {
-      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-      lightboxImg.src = galleryImages[currentIndex].src;
-    }
-
-    galleryImages.forEach((img, index) => {
-      img.addEventListener('click', () => openLightbox(index));
-    });
-
-    btnNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showNext();
-    });
-
-    btnPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showPrev();
-    });
-
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('active')) return;
-      if (e.key === 'Escape') lightbox.classList.remove('active');
-      if (e.key === 'ArrowRight') showNext();
-      if (e.key === 'ArrowLeft') showPrev();
-    });
-  });
-</script>
-
+</main>
+<footer>Giuseppe Muscari Tomajoli · <a href="#about">Back to top ↑</a></footer>
 </body>
 </html>
