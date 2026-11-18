@@ -33,6 +33,13 @@ p{max-width:74ch}.section-subtitle,.muted,.timeline-meta,.tag-row{color:var(--mu
 #contact{border:0}.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
 footer{padding:1.5rem 0;border-top:1px solid var(--line)}
 @media(max-width:640px){nav,main,footer,.hero-inner{width:calc(100% - 2rem)}.card,.contact-grid{display:block}.card h3,.card p:not(.eyebrow){margin:.55rem 0}.gallery-grid{gap:.35rem}}
+
+.mid-page{position:relative;isolation:isolate}
+.mid-page::before{content:"";position:absolute;inset:0;z-index:-1;margin-inline:calc((100% - 100vw)/2);background:radial-gradient(ellipse at 88% 15%,#23382b 0%,transparent 58%),#111812}
+#academic::before{background:linear-gradient(135deg,#1d2a22,#121713 65%)}
+.visual-break{margin:0 calc((100% - 100vw)/2);overflow:hidden}
+.research-break{height:clamp(110px,18vw,250px);background:linear-gradient(100deg,#101310 5%,#10131025 62%,#101310 100%),repeating-linear-gradient(112deg,transparent 0 18px,#c7ea8c22 19px 20px,transparent 21px 29px),radial-gradient(ellipse at 65% 100%,#526839,#1a2921 55%,#101310)}
+.field-break img{display:block;width:100%;height:clamp(210px,34vw,455px);object-fit:cover;object-position:center 44%;filter:brightness(.8)}
 </style>
 </head>
 <body>
@@ -50,25 +57,27 @@ footer{padding:1.5rem 0;border-top:1px solid var(--line)}
   </div>
 </header>
 <main>
-<section id="research">
+<section id="research" class="mid-page">
   <h2>Research</h2>
   <div class="cards">
     <article class="card"><p class="eyebrow">Doctoral research</p><h3>Green Lung</h3><p>I am designing a controlled-light experiment to compare C3 and CAM plants. I mapped the LED spectra and measured photosynthetic photon flux density at the plant support surface as part of the experimental setup.</p></article>
     <article class="card" id="thesis"><p class="eyebrow">Master’s thesis</p><h3>Plants under altered gravity</h3><p>My thesis investigates how light and gravity shape plant responses, with a focus on gravitropism, phototropism and Photosystem II. The approach combines biochemical measurements, imaging and chlorophyll fluorescence.</p><p>Supervisor · <a href="https://tinyurl.com/ms4nby65?supervisor=arena">Prof. Carmen Arena</a></p></article>
   </div>
 </section>
+<div class="visual-break research-break" aria-hidden="true"></div>
 <section id="svalbard">
   <p class="eyebrow">Longyearbyen, Norway · 2025</p><h2>Arctic fieldwork</h2>
   <p>At the University Centre in Svalbard (UNIS), I took the Arctic Marine Molecular Ecology field course. I collected water samples in Arctic fjords and analysed microbial RNA in the lab alongside an international group of students and researchers.</p>
   <a href="#gallery">View field photographs ↓</a>
 </section>
+<figure class="visual-break field-break"><img src="assets/gallery/SvalSoccorso.webp" loading="lazy" alt="Field safety training in Svalbard"></figure>
 <section id="app">
   <h2>Research tools</h2>
   <div class="cards">
-    <article class="card"><h3>Plant Health Checker</h3><p>A rule-based tool for interpreting plant stress indicators such as chlorophyll fluorescence, pigment content and SPAD readings.</p><div class="card-links"><a href="https://github.com/Ares777nonnt/Plant-Health-Checker">Source code ↗</a> · <a href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/">Open app ↗</a></div></article>
+    <article class="card"><h3>Plant Health Checker</h3><p>A rule-based tool for interpreting plant stress indicators such as chlorophyll fluorescence, pigment content and SPAD readings.</p><div class="card-links"><a href="https://github.com/GiuseppeMT/Plant-Health-Checker">Source code ↗</a> · <a href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/">Open app ↗</a></div></article>
   </div>
 </section>
-<section id="academic" >
+<section id="academic" class="mid-page">
       <h2>Academic Profile</h2>
       <p class="section-subtitle">Education, research experience and scientific output.</p>
 
