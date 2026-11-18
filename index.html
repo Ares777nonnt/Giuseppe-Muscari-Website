@@ -6,39 +6,33 @@
 <meta name="description" content="Giuseppe Muscari Tomajoli — plant photophysiology, space biology, Arctic fieldwork and research tools.">
 <title>Giuseppe Muscari Tomajoli | Research Portfolio</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
-:root{color-scheme:light;--ink:#19342c;--paper:#f7f5ed;--accent:#295d48;--muted:#526158;--line:#cbd3c7}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,system-ui,sans-serif}
-a{color:var(--accent);text-underline-offset:.24em}
-a:focus-visible{outline:2px solid currentColor;outline-offset:5px}
-nav,main,footer,.hero-inner{width:min(1120px, calc(100% - 3rem));margin:auto}
-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;padding:1.1rem 0}
-nav a{text-decoration:none;font-weight:600}
-nav a:hover{text-decoration:underline}
-.nav-links{display:flex;flex-wrap:wrap;gap:.35rem 1.2rem}
-header{background:#193b30;color:#fffdf1}
-.hero-inner{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,6rem);align-items:center;padding:clamp(2rem,6vw,6rem) 0}
-.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;max-height:520px}
-.hero-inner a{color:inherit}
-.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
-h1,h2,h3,.card-title{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.04;margin:0 0 .55em}
-h1{font-size:clamp(3.5rem,8vw,7.8rem);letter-spacing:-.045em}
-h2{font-size:clamp(2.6rem,5vw,4.4rem);letter-spacing:-.025em}
-h3,.card-title{font-size:clamp(1.6rem,3vw,2.25rem)}
-section{padding:clamp(2.5rem,6vw,5rem) 0;border-bottom:1px solid var(--line)}
-p{max-width:72ch}
-section .section-subtitle,.muted,.timeline-meta{color:var(--muted)}
-.cards,.gallery-grid,.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-.card,.timeline-item,.contact-card{border:1px solid var(--line);padding:1.4rem;background:#fffdf7;overflow-wrap:anywhere}
-.timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-bottom:2rem}
-.timeline-label,.tag-row,.contact-label{font-size:.82rem;color:var(--muted)}
-.timeline-title{font-weight:700;margin:.3rem 0}
-.tag-row,.timeline-desc{margin-top:.8rem}
-.tag+.tag::before{content:" · "}
-.gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
-footer{padding:2rem 0}
-@media(max-width:660px){.hero-inner,.cards,.timeline,.gallery-grid,.contact-grid{grid-template-columns:1fr}.hero-photo{aspect-ratio:4/3;object-position:center 35%}}
+:root{color-scheme:dark;--bg:#101310;--paper:#e8e9de;--muted:#b5bbae;--line:#454c40;--accent:#d4ef86}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--paper);font:16px/1.65 system-ui,sans-serif}
+a{color:var(--accent);text-underline-offset:.28em}a:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+nav,main,footer{width:min(1220px,calc(100% - 3rem));margin:auto}
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.7rem 1.5rem;padding:1.1rem 0}
+nav a{color:var(--paper);text-decoration:none;font-size:.86rem;font-weight:600}nav a:hover{text-decoration:underline}
+.nav-links{display:flex;flex-wrap:wrap;gap:.35rem 1.25rem}
+header{position:relative;isolation:isolate;min-height:clamp(510px,76svh,850px);display:grid;align-items:end;background:#252f29;overflow:hidden}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;z-index:-2}
+header::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0c100e 2%,#0c100eaf 42%,#0c100e28 100%);z-index:-1}
+.hero-inner{width:min(1220px,calc(100% - 3rem));margin:0 auto;padding:3.8rem 0 2.8rem}
+.hero-inner p{max-width:56ch}.hero-inner a{display:inline-block;margin-top:.45rem;font-weight:650}
+h1,h2,h3{font-weight:640;line-height:.98;letter-spacing:-.055em;margin:0 0 .45em}
+h1{font-size:clamp(3rem,8vw,8rem);max-width:12ch}h2{font-size:clamp(2.5rem,5.5vw,5.6rem)}h3{font-size:clamp(1.5rem,3vw,2.5rem)}
+.eyebrow,.timeline-label,.contact-label,.photo-credit{color:var(--accent);font: .77rem/1.5 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.09em}
+.photo-credit{margin:2rem 0 0;color:var(--paper)}
+section{padding:clamp(3rem,8vw,7rem) 0;border-bottom:1px solid var(--line)}
+p{max-width:74ch}.section-subtitle,.muted,.timeline-meta,.tag-row{color:var(--muted)}
+.cards,.timeline,.contact-grid{border-top:1px solid var(--line)}
+.card,.timeline-item,.contact-card{padding:1.4rem 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:.5rem 2rem;align-items:baseline}
+.card h3{grid-column:1;grid-row:2 / span 2}.card p:not(.eyebrow){grid-column:2;margin:0}.card .eyebrow{grid-column:1;margin:0}.card>p:last-child{margin-top:.6rem}.card-links{grid-column:2}
+.timeline{margin-bottom:2rem}.timeline-title{font-weight:700}.tag+.tag::before{content:" · "}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+#contact{border:0}.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+footer{padding:1.5rem 0;border-top:1px solid var(--line)}
+@media(max-width:640px){nav,main,footer,.hero-inner{width:calc(100% - 2rem)}.card,.contact-grid{display:block}.card h3,.card p:not(.eyebrow){margin:.55rem 0}.gallery-grid{gap:.35rem}}
 </style>
 </head>
 <body>
@@ -49,10 +43,10 @@ footer{padding:2rem 0}
 <header id="about">
   <div class="hero-inner">
     <div><p class="eyebrow">PhD in Biology · University of Naples Federico II</p>
-    <h1>Giuseppe<br>Muscari Tomajoli</h1>
+    <h1>Giuseppe Muscari Tomajoli</h1>
     <p>I study how plants respond to changes in light and gravity. My work brings together plant photophysiology, astrobiology and field experience in the Arctic.</p>
-    <a href="#research">Explore my research ↓</a></div>
-    <img class="hero-photo" src="assets/profile/profile.jpg" alt="Portrait of Giuseppe Muscari Tomajoli">
+    <a href="#research">Explore my research ↓</a><p class="photo-credit">Svalbard · Field photographs, 2025</p></div>
+    <img class="hero-photo" src="assets/gallery/SvalAurora1.webp" alt="">
   </div>
 </header>
 <main>
@@ -71,8 +65,8 @@ footer{padding:2rem 0}
 <section id="app">
   <h2>Research tools</h2>
   <div class="cards">
-    <article class="card"><h3>Plant Health Checker</h3><p>A rule-based tool for interpreting plant stress indicators such as chlorophyll fluorescence, pigment content and SPAD readings.</p><a href="https://github.com/Ares777nonnt/Plant-Health-Checker">Source code ↗</a> · <a href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/">Open app ↗</a></article>
-    <article class="card"><h3>Provette &amp; Appunti</h3><p>A lab notebook for recording experimental work in plain language and following the history of samples and experiments.</p><a href="https://green-lung-lab-notebook.giuseppe-muscari.chatgpt.site">Open lab notebook ↗</a></article>
+    <article class="card"><h3>Plant Health Checker</h3><p>A rule-based tool for interpreting plant stress indicators such as chlorophyll fluorescence, pigment content and SPAD readings.</p><div class="card-links"><a href="https://github.com/Ares777nonnt/Plant-Health-Checker">Source code ↗</a> · <a href="https://plant-health-checker-bgbmkdandchrvvjgervxzv.streamlit.app/">Open app ↗</a></div></article>
+    <article class="card"><h3>Provette &amp; Appunti</h3><p>A lab notebook for recording experimental work in plain language and following the history of samples and experiments.</p><div class="card-links"><a href="https://green-lung-lab-notebook.giuseppe-muscari.chatgpt.site">Open lab notebook ↗</a></div></article>
   </div>
 </section>
 <section id="academic" >
